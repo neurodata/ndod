@@ -43,7 +43,7 @@ For NeuroData, users are advised to use one of the NeuroData APIs, which are doc
 
 ## Manual Annotation for Open Science
 
-Prior to training a classifier, dense ground truth is needed.  We provide a tool called manno [http://docs.neurodata.io/manno/] to annotate ground truth.  This interfaces with ITK-Snap and a well-defined protocol that has been used for many neuroimaging tasks.
+Prior to training a classifier, dense ground truth is needed.  We provide a tool called mano [http://docs.neurodata.io/mano/] to annotate ground truth.  This interfaces with ITK-Snap and a well-defined protocol that has been used for many neuroimaging tasks.
 
 Interfaces are provided for both standalone and neurodata workflows.
 

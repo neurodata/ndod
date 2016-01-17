@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# ndod documentation build configuration file, created by
+# brain documentation build configuration file, created by
 # sphinx-quickstart on Sun May 17 11:10:35 2015.
 #
 # This file is execfile()d with the current directory set to its
@@ -19,6 +19,22 @@ import shlex
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
+
+#sys.path.insert(0, os.getenv('brain_HOME'))
+#import packages.utils.setup
+#import packages.dtipreproc.extract_b0
+#import packages.dtipreproc.parse_b
+#import packages.tractography.tensor_gen
+#import packages.tractography.fiber_gen
+#import packages.tractography.fiber_convert
+#import mrcap.gengraph
+#import docs.scripts.bet
+#import docs.scripts.eddycorrect
+#import docs.scripts.flirt
+#import docs.scripts.brain
+#import docs.scripts.brain_registration
+#import docs.scripts.brain_diffusion
+#import packages.utils.graphml2mat
 
 # -- General configuration ------------------------------------------------
 
@@ -46,8 +62,8 @@ templates_path = ['_templates']
 matlab_src_dir = '..'
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
-source_suffix = ['.rst', '.md']
-#source_suffix = '.rst'
+# source_suffix = ['.rst', '.md']
+source_suffix = '.rst'
 
 # The encoding of source files.
 #source_encoding = 'utf-8-sig'
@@ -56,9 +72,9 @@ source_suffix = ['.rst', '.md']
 master_doc = 'index'
 
 # General information about the project.
-project = u'ndod'
-copyright = u'2015, NeuroData'
-author = u'NeuroData'
+project = u'brain'
+copyright = u'2015, Open Connectome Project'
+author = u'OCP'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -209,7 +225,7 @@ html_use_smartypants = True
 #html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'ndoddoc'
+htmlhelp_basename = 'braindoc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -231,7 +247,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  (master_doc, 'ndod.tex', u'ndod Documentation',
+  (master_doc, 'brain.tex', u'brain Documentation',
    u'OCP', 'manual'),
 ]
 
@@ -261,7 +277,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'ndod', u'ndod Documentation',
+    (master_doc, 'brain', u'brain Documentation',
      [author], 1)
 ]
 
@@ -275,8 +291,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  (master_doc, 'ndod', u'ndod Documentation',
-   author, 'ndod', 'NeuroData object detection.',
+  (master_doc, 'brain', u'brain Documentation',
+   author, 'brain', 'One line description of project.',
    'Miscellaneous'),
 ]
 
