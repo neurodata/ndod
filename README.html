@@ -1,0 +1,253 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>&lt;no title&gt; &mdash; ndod v1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/ocp_favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ndod v1.0 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ndod
+          
+
+          
+            
+            <img src="_static/ocp_main.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">function documentation</span></p>
+<ul class="simple">
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ndod</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>&lt;no title&gt;</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/README.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <p># Mouse Brain Cell Detection Pipeline Deliverable</p>
+<p><strong>January 15, 2016</strong></p>
+<p><em>JHU/Applied Physics Laboratory Technical Report and Readme</em></p>
+<p>To enable the detection of cell clusters at scale, we have developed a generalizable, open source framework.  This framework leverages community tools and custom-built code to efficiently and effectively provide scientific tools.</p>
+<p>Due to the limited ground truth available at this time, the focus of this handoff is on providing capability, rather than performance, although we have provided post-processing tools and assessment methodology that can be expanded as truthing data mature.</p>
+<p>![](./images/overlay_cellCluster_v1b.png)</p>
+<p>There are two main ways to interact with this pipeline:</p>
+<p>In the standalone mode, users specify a directory location where their images reside, and use the included scripts to save files in a format compatible with downstream processing.  The results are saved in a specified output directory for future analysis.  Users can then choose an image processing or machine vision tool (deep learning with pyCaffe, ilastik, or a MATLAB pre-screening tool), and save the probabilities to disk.  To convert these images to cell clusters, one can threshold and run a connected components analsyis on the probability maps.  An optional step to compute statistics on each cluster is provided.</p>
+<p>![](./images/od_standalone.png)</p>
+<p>As an alternative, the input/output modules can be changed to get/put data to the NeuroData spatial databases.  The workflow is as described above, except that all data endpoints are at the spatial database, rather than stored locally.</p>
+<p>Currently, the deep learning methods have not been explicitly integrated into the neuroData backend.</p>
+<p>![](./images/od_nd.png)</p>
+<p>## Data Input/Output</p>
+<p>### Standalone</p>
+<p>In standalone mode, the data is first converted to a common format.  All three processing methods are flexible regarding input data format, but the interfaces vary slightly, and are described below.</p>
+<p>We provide an example script in ./pipeline/io that downsamples and converts a directory of data to tif stacks for convenience.  This can be easily extended based on user needs.</p>
+<p>For output, users will specify an output directory</p>
+<p>### NeuroData</p>
+<p>For NeuroData, users are advised to use one of the NeuroData APIs, which are documented extensively at the following locations:</p>
+<ul class="simple">
+<li>ndio (python):  documentation is available at <a class="reference external" href="http://docs.neurodata.io/nddocs/ndio/">http://docs.neurodata.io/nddocs/ndio/</a></li>
+<li>CAJAL (MATLAB):  documentation is available at <a class="reference external" href="http://docs.neurodata.io/CAJAL/">http://docs.neurodata.io/CAJAL/</a></li>
+<li>RESTful endpoints:  documentation is available at <a class="reference external" href="http://docs.neurodata.io/open-connectome/">http://docs.neurodata.io/open-connectome/</a></li>
+</ul>
+<p>## Manual Annotation for Open Science</p>
+<p>Prior to training a classifier, dense ground truth is needed.  We provide a tool called mano [<a class="reference external" href="http://docs.neurodata.io/mano/">http://docs.neurodata.io/mano/</a>] to annotate ground truth.  This interfaces with ITK-Snap and a well-defined protocol that has been used for many neuroimaging tasks.</p>
+<p>Interfaces are provided for both standalone and neurodata workflows.</p>
+<p>## Machine Annotation for Open Science (Pixel Classification)</p>
+<p>For the core processing task of cell cluster detection, we provide three options:</p>
+<p>### Basic Thresholding</p>
+<p>This is a method that takes in a tif file and outputs both a probability and thresholded mask containing cell cluster detections.  Because this is only image processing (not machine learning), it is recommended to be used as a pre-processing or data reduction step.  Because the deep learning methods are much more computationally expensive, users might wish to use this step to remove background and other pixels that are very unlikely to contain target from a classifier testing paradigm.</p>
+<p>The code for this approach has only been tested in standalone mode.</p>
+<p>### Ilastik</p>
+<p>### Deep Learning</p>
+<p>Please see the Deep Learning Repo.</p>
+<p>## Post Processing (Object Detection)</p>
+<ul class="simple">
+<li>Cell clusters</li>
+<li>Centroids and Size Metrics</li>
+</ul>
+<p>### Assessment</p>
+<ul class="simple">
+<li>Accuracy</li>
+<li>Precision-Recall</li>
+</ul>
+<p>## End-to-End Framework Prototype</p>
+<p>The processing steps described above can be run sequentially or integrated into a larger framework to automate some of the interfaces.  As each users&#8217; integration environment
+Users have at least three choices when running the computational blocks presented here:</p>
+<ul class="simple">
+<li>LONI</li>
+<li>Scriptable Format</li>
+<li>Cluster integration (outside scope)</li>
+</ul>
+<p>We provide examples of each mode, which can be adapted to user needs.</p>
+<p>## Outlook</p>
+<p>Finding cell clusters in nissl-stained images can be complex at scale, but the tools provided give three distinct options for processing:</p>
+<ul class="simple">
+<li>An intensity based method, perhaps most suitable for</li>
+</ul>
+<p>Future work is needed to generate expert dense ground truth labels for training, evaluation and test.  Additionally, work is needed to estimate cell counts in each cell cluster.  This may be accomplished through a regression problem, superpixelization, or simply counting based on estimated cell sizes.</p>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, NeuroData.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'v1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

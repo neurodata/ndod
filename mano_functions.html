@@ -1,0 +1,327 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>mano Functions &mdash; ndod v1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/ocp_favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ndod v1.0 documentation" href="index.html"/>
+        <link rel="prev" title="&lt;no title&gt;" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ndod
+          
+
+          
+            
+            <img src="_static/ocp_main.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">function documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">mano Functions</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">ndod</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>mano Functions</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/mano_functions.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-mano.code">
+<span id="mano-functions"></span><h1>mano Functions<a class="headerlink" href="#module-mano.code" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="mano.code.mano_getImage">
+<code class="descclassname">mano.code.</code><code class="descname">mano_getImage</code><span class="sig-paren">(</span><em>server</em>, <em>token</em>, <em>channel</em>, <em>queryFile</em>, <em>fileOut</em>, <em>useSemaphore</em><span class="sig-paren">)</span><a class="headerlink" href="#mano.code.mano_getImage" title="Permalink to this definition">¶</a></dt>
+<dd><p>mano function to get OCP image data and format it to be
+compatible with ITK-Snap.</p>
+<p><strong>Inputs</strong></p>
+<blockquote>
+<div><dl class="docutils">
+<dt>server: [string]</dt>
+<dd><ul class="first last simple">
+<li>OCP server name hosting the image data of interest</li>
+</ul>
+</dd>
+<dt>token: [string]</dt>
+<dd><ul class="first last simple">
+<li>OCP token name for the annotation data of interest</li>
+</ul>
+</dd>
+<dt>channel: [string]</dt>
+<dd><ul class="first last simple">
+<li>OCP channel name for the annotation data of interest</li>
+</ul>
+</dd>
+<dt>queryFile: [string]</dt>
+<dd><ul class="first last simple">
+<li>path and filename for queryFile.  Should be a MAT file containing one OCPQuery variable, named &#8216;query&#8217;</li>
+</ul>
+</dd>
+<dt>fileOut: [string]</dt>
+<dd><ul class="first last simple">
+<li>path and filename for NIFTI image file to use in ITK Snap for annotating</li>
+</ul>
+</dd>
+<dt>useSemaphore: [number][default=0]</dt>
+<dd><ul class="first last simple">
+<li>Throttles reading/writing client-side for large batch jobs.  Not needed in single cutout mode</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+<p><strong>Outputs</strong></p>
+<blockquote>
+<div>No explicit outputs.  Output file is saved to disk rather than
+output as a variable to allow for downstream integration with LONI.</div></blockquote>
+<p><strong>Notes</strong></p>
+<blockquote>
+<div>Currently only uint8 image data is supported.  Multichannel data may
+produce unexpected results.</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="mano.code.mano_putAnno">
+<code class="descclassname">mano.code.</code><code class="descname">mano_putAnno</code><span class="sig-paren">(</span><em>server</em>, <em>token</em>, <em>channel</em>, <em>queryFile</em>, <em>fileIn</em>, <em>protoRAMON</em>, <em>doConnComp</em>, <em>useSemaphore</em><span class="sig-paren">)</span><a class="headerlink" href="#mano.code.mano_putAnno" title="Permalink to this definition">¶</a></dt>
+<dd><p>mano function to upload annotation data from ITK-Snap to OCP.</p>
+<p><strong>Inputs</strong></p>
+<blockquote>
+<div><dl class="docutils">
+<dt>server: [string]</dt>
+<dd><ul class="first last simple">
+<li>OCP server where annotation data will reside</li>
+</ul>
+</dd>
+<dt>token: [string]</dt>
+<dd><ul class="first last simple">
+<li>OCP token name for the annotation data of interest</li>
+</ul>
+</dd>
+<dt>channel: [string]</dt>
+<dd><ul class="first last simple">
+<li>OCP channel name for the annotation data of interest</li>
+</ul>
+</dd>
+<dt>queryFile: [string]</dt>
+<dd><ul class="first last simple">
+<li>path and filename for queryFile.  Should be a MAT file containing one OCPQuery variable, named &#8216;query&#8217;.  This should be the same as the queryFile used to cutout data</li>
+</ul>
+</dd>
+<dt>fileIn: [string]</dt>
+<dd><ul class="first last simple">
+<li>path and filename for NIFTI segmentation file saved in ITK Snap</li>
+</ul>
+</dd>
+<dt>protoRAMON: [string]</dt>
+<dd><ul class="first last simple">
+<li>A prototype RAMONObject; each annotation object created will be based on this template (e.g., RAMONOrganelle, RAMONSynapse).  Users can set fields (e.g., author, confidence) by writing wrapper scripts</li>
+</ul>
+</dd>
+<dt>doConnComp: [number]</dt>
+<dd><ul class="first last simple">
+<li>If equal to 1, objects will be relabeled based on 3D (26-connected) voxels.  If set to 0, objects will be uploaded exactly as created.</li>
+</ul>
+</dd>
+<dt>useSemaphore: [number][default=0]</dt>
+<dd><ul class="first last simple">
+<li>Throttles reading/writing client-side for large batch jobs.  Not needed in single cutout mode</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+<p><strong>Outputs</strong></p>
+<blockquote>
+<div>No explicit outputs.  Output file is saved to disk rather than
+output as a variable to allow for downstream integration with LONI.</div></blockquote>
+<p><strong>Notes</strong></p>
+<blockquote>
+<div>Currently only uint8 image data is supported.  Multichannel data may
+produce unexpected results.</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="mano.code.run_mano_example">
+<code class="descclassname">mano.code.</code><code class="descname">run_mano_example</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mano.code.run_mano_example" title="Permalink to this definition">¶</a></dt>
+<dd><p>mano Example 
+mano starter to demonstrate protocol functionality.  All required inputs
+are hardcoded for this demo.  Paths are hardcoded for Linux/Mac.</p>
+<p>This example should be run from the code directory because of the
+relative paths</p>
+<p>The result of this run can be viewed in a webbrowser using the following
+URL: <a class="reference external" href="http://openconnecto.me/ocp/overlay/0.6/openconnecto.me/kasthuri11cc/image/openconnecto.me/mano/mito/xy/1/5472,5972/8712,9212/1031/">http://openconnecto.me/ocp/overlay/0.6/openconnecto.me/kasthuri11cc/image/openconnecto.me/mano/mito/xy/1/5472,5972/8712,9212/1031/</a></p>
+</dd></dl>
+
+<p><em>For questions on these functions, please contact Will Gray Roncal at wgr&#64;jhu.edu</em></p>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="&lt;no title&gt;" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, NeuroData.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'v1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
