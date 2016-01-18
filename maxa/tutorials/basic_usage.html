@@ -1,0 +1,288 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Basic Usage &mdash; ndod v1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/ocp_favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ndod v1.0 documentation" href="../../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ndod
+          
+
+          
+            
+            <img src="../../_static/ocp_main.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">function documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../mana_functions.html">mana Functions</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">ndod</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Basic Usage</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/maxa/tutorials/basic_usage.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="basic-usage">
+<h1>Basic Usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="protocol">
+<h2>Protocol<a class="headerlink" href="#protocol" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Identify a region of interest in OCP, and note the data server, token, channel, resolution, and coordinates</li>
+<li>Create a query, using the instructions for CAJAL</li>
+<li>Run <em>mano_getImage.m</em> to generate an image volume suitable for annotation in ITK Snap</li>
+<li>Annotate: Once the data has been formatted for ITK Snap, the user should open the ITK SNAP application and load in the NIFTI data saved during the data acquisition step. Then using the brush tool, annotate the data as desired. Users can choose to use separate colors for each annotation or rely on a connected component post-processing step to identify each object (best for sparse data)</li>
+<li>Save Segmentation Image: (ITK Snap Menu &gt; Segmentation &gt; Save Segmentation Image). Choose a name that you will be able to easily correlate to its appropriate volume image volume.</li>
+<li>Run <em>mano_putAnno.m</em>, specifying the server, token, annotation file, and query used to download the underlying image. Users may choose to run a simple connected component post-processing step to break each group of connected pixels (3D) into a separate ID. More complicated post-processing should be done outside of the tool, with the result uploaded using the ocp_upload_dense.m function (see CAJAL documentation).</li>
+</ul>
+</div>
+<div class="section" id="usage-notes">
+<h2>Usage Notes<a class="headerlink" href="#usage-notes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>For more information on painting annotations, please follow the steps outlined <a class="reference external" href="http://www.itksnap.org/pmwiki/pmwiki.php?n=Documentation.TutorialSectionManualSegmentation">here</a>.</li>
+<li>Currently, only single channel 8-bit image data is supported</li>
+<li>ITK-Snap is compatible with a variety of input data formats; the most straightforward is NIFTI, a general purpose neuroimaging format. On laptops or smaller workstations, only a small portion of a slice/volume should be truthed at a time for memory reasons.</li>
+<li><em>run_mano_example.m</em> provides a minimal working example to use as a starting point.</li>
+</ul>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>The following code demonstrates the mano protocol.  A few mitochondria have been labeled as an example.  The example script should take approximately 10 seconds to complete.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="k">function</span> run_mano_example<span class="o">()</span>
+% mano Example
+% mano starter to demonstrate protocol functionality.  All required inputs
+% are hardcoded <span class="k">for</span> this demo.  Paths are hardcoded <span class="k">for</span> Linux/Mac.
+%
+% This example should be run from the code directory because of the
+% relative paths
+
+<span class="nv">xstart</span> <span class="o">=</span> 5472<span class="p">;</span>
+<span class="nv">xstop</span> <span class="o">=</span> xstart + 512<span class="p">;</span>
+<span class="nv">ystart</span> <span class="o">=</span> 8712<span class="p">;</span>
+<span class="nv">ystop</span> <span class="o">=</span> ystart + 512<span class="p">;</span>
+<span class="nv">zstart</span> <span class="o">=</span> 1020<span class="p">;</span>
+<span class="nv">zstop</span> <span class="o">=</span> zstart + 16<span class="p">;</span>
+
+<span class="nv">resolution</span> <span class="o">=</span> 1<span class="p">;</span>
+
+<span class="nv">query</span> <span class="o">=</span> OCPQuery<span class="p">;</span>
+query.setType<span class="o">(</span>eOCPQueryType.imageDense<span class="o">)</span><span class="p">;</span>
+query.setCutoutArgs<span class="o">([</span>xstart, xstop<span class="o">]</span>,<span class="o">[</span>ystart,ystop<span class="o">]</span>,<span class="o">[</span>zstart,zstop<span class="o">]</span>,resolution<span class="o">)</span><span class="p">;</span>
+
+save<span class="o">(</span><span class="s1">&#39;../data/queryFileTest.mat&#39;</span>,<span class="s1">&#39;query&#39;</span><span class="o">)</span>
+%% Servers and tokens - alter appropriately
+<span class="nv">server</span> <span class="o">=</span> <span class="s1">&#39;openconnecto.me&#39;</span><span class="p">;</span>
+<span class="nv">token</span> <span class="o">=</span> <span class="s1">&#39;kasthuri11cc&#39;</span><span class="p">;</span>
+<span class="nv">channel</span> <span class="o">=</span> <span class="s1">&#39;image&#39;</span><span class="p">;</span>
+<span class="nv">serverUp</span> <span class="o">=</span> <span class="s1">&#39;openconnecto.me&#39;</span><span class="p">;</span>
+<span class="nv">tokenUp</span> <span class="o">=</span> <span class="s1">&#39;mano&#39;</span><span class="p">;</span>
+<span class="nv">channelUp</span> <span class="o">=</span> <span class="s1">&#39;mito&#39;</span><span class="p">;</span>
+%% Run mano
+mano_getImage<span class="o">(</span>server,token,channel,<span class="s1">&#39;../data/queryFileTest&#39;</span>,<span class="s1">&#39;../data/testitk.nii&#39;</span>,0<span class="o">)</span>
+
+% Manual annotation step happens here
+mano_putAnno<span class="o">(</span>serverUp,tokenUp,channelUp,<span class="s1">&#39;../data/queryFileTest&#39;</span>,<span class="s1">&#39;../data/mito_seg_example.nii.gz&#39;</span>,<span class="s1">&#39;RAMONOrganelle&#39;</span>, 1,0<span class="o">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="validation">
+<h2>Validation<a class="headerlink" href="#validation" title="Permalink to this headline">¶</a></h2>
+<p>The result of the example script can be accessed using this <a class="reference external" href="http://openconnecto.me/ocp/overlay/0.6/openconnecto.me/kasthuri11cc/image/openconnecto.me/mano/mito/xy/1/5472,5972/8712,9212/1031/">link</a>.</p>
+<p>Note that the server and token pair listed here are public but read-only and other data may be pre-existing.  Please create your own projects for testing and annotating!</p>
+<div class="figure">
+<img alt="maxa/tutorials/../images/mano_example_v2.png" src="maxa/tutorials/../images/mano_example_v2.png" />
+</div>
+</div>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
+<p>Currently, mano only supports 8-bit image data as input, and 32-bit annotation data as output.  If your data is another type (e.g., RGB32), please follow these steps to get your data into a NIFTI file.
+Once your data is in a NIFTI format, you can seamlessly use the rest of the protocol (annotation and upload).  We will be making additional enhancements to simplify this process in the coming months.</p>
+<ul class="simple">
+<li>Get an HDF5 cutout of your data, following the instructions here:  <a class="reference external" href="http://docs.neurodata.io/open-connectome/api/data_api.html#get">http://docs.neurodata.io/open-connectome/api/data_api.html#get</a></li>
+<li>Open your hdf5 file in matlab.  This can typically be accomplished with the following command:  <cite>im = h5read(&lt;path to data&gt;, &#8216;/default/CUTOUT&#8217;)</cite></li>
+<li>If you have difficulty with this step, try viewing the structure of your data using <a class="reference external" href="https://www.hdfgroup.org/products/java/hdfview/">HDFView</a>, a free cross-platform tool.</li>
+<li>Next save your nifti data:</li>
+</ul>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">nii</span> <span class="o">=</span> make_nii<span class="o">(</span>im<span class="o">)</span><span class="p">;</span>
+save_nii<span class="o">(</span>nii, fileOut<span class="o">)</span><span class="p">;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>And finally be sure to manually create and save your query using the instructions provided in CAJAL (or the demo script):</li>
+</ul>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">query</span> <span class="o">=</span> OCPQuery<span class="p">;</span>
+query.setType<span class="o">(</span>eOCPQueryType.imageDense<span class="o">)</span><span class="p">;</span>
+query.setCutoutArgs<span class="o">([</span>xstart, xstop<span class="o">]</span>,<span class="o">[</span>ystart,ystop<span class="o">]</span>,<span class="o">[</span>zstart,zstop<span class="o">]</span>,resolution<span class="o">)</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, NeuroData.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'v1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

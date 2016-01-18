@@ -1,0 +1,347 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ilastik &mdash; ndod v1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/ocp_favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="ndod v1.0 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ndod
+          
+
+          
+            
+            <img src="../_static/ocp_main.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">function documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../mana_functions.html">mana Functions</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ndod</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>ilastik</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/maca/ilastik.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ilastik">
+<h1>ilastik<a class="headerlink" href="#ilastik" title="Permalink to this headline">¶</a></h1>
+<p>ilastik is a tool developed to do machine annotation and is widely used by the connectomics community.
+We present a lightweight protocol and data exchange format to allow users to use ilastik and OCP together.
+This provides an easy method for users to quickly prototype, build, and deploy machine learning solutions
+to neuroscience problems.  The figure below outlines a sample workflow.
+The initial version of this workflow supports both pixel classification and an object detection step.</p>
+<p>The example classifiers presented are used as a capability demonstration, not to demonstrate outstanding
+classification performance.  If you would like to contribute a better performing classifier, please contact us.</p>
+<p>Ilastik already supports exchanging data in hdf5 format.  The wrappers and functions provided here are used to help
+read in raw OCP data and format the classifier output into RAMON objects suitable for uploading to OCP project databases.</p>
+<p>LONI modules and an example workflow exist to enable rapid development.</p>
+<div class="figure align-center">
+<img alt="../_images/ocpilastik_intro.png" src="../_images/ocpilastik_intro.png" />
+</div>
+<div class="section" id="pixel-classification-train">
+<h2>Pixel Classification Train<a class="headerlink" href="#pixel-classification-train" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Identify a region of interest in OCP, and note the data server, token, resolution, and coordinates</li>
+<li>Create a query, using the instructions for OCP RESTful queries, CAJAL, or OCPy (CAJAL: cubeCutoutPreprocessAdvanced.m).</li>
+<li>Download a raw data volume in HDF5 format (CAJAL: cubeCutout.m)</li>
+<li>Using ilastik, build a pixel classifier, following the <a class="reference external" href="http://ilastik.org/documentation/pixelclassification/pixelclassification.html">Pixel Classification instructions in Ilastik</a></li>
+<li>Save your ilastik project, containing your trained classifier</li>
+</ul>
+</div>
+<div class="section" id="pixel-classification-deploy">
+<h2>Pixel Classification Deploy<a class="headerlink" href="#pixel-classification-deploy" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Identify a region of interest in OCP, and note the data server, token, resolution, and coordinates</li>
+<li>Create a query, using the instructions for OCP RESTful queries, CAJAL, or OCPy (CAJAL: cubeCutoutPreprocessAdvanced.m).</li>
+<li>Download a raw data volume in HDF5 format (CAJAL: cubeCutout.m)</li>
+<li>Classify the volume of interest using <a class="reference external" href="http://ilastik.org/documentation/pixelclassification/headless.html">Ilastik in headless mode</a>.</li>
+<li>Reformat (using ilastikPixelToRAMON.m) and upload results (using CAJAL: cubeUploadProbabilities.m)</li>
+</ul>
+<p>Ilastik Command:</p>
+<div class="code highlight-python"><div class="highlight"><pre>&lt;ilastik executable&gt; --headless
+--project &lt;project file&gt;.ilp
+--output_format hdf5
+--output_filename_format &lt;output filename&gt;
+&lt;path and filename for raw data&gt;/&lt;hdf5 dataset&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="object-detection-train">
+<h2>Object Detection Train<a class="headerlink" href="#object-detection-train" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Identify a region of interest in OCP, and note the data server, token, resolution, and coordinates</li>
+<li>Create a query, using the instructions for OCP RESTful queries, CAJAL, or OCPy (CAJAL: cubeCutoutPreprocessAdvanced.m).</li>
+<li>Download a raw data volume in HDF5 format (CAJAL: cubeCutout.m).</li>
+<li>Using ilastik, your raw data, and the results from a previous pixel classification step, build an object classifier, following the <a class="reference external" href="http://ilastik.org/documentation/objects/objects.html">Object Classification Workflow</a></li>
+</ul>
+</div>
+<div class="section" id="object-detection-deploy">
+<h2>Object Detection Deploy<a class="headerlink" href="#object-detection-deploy" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Identify a region of interest in OCP, and note the data server, token, resolution, and coordinates</li>
+<li>Create a query, using the instructions for OCP RESTful queries, CAJAL, or OCPy.</li>
+<li>Download a raw data volume in HDF5 format</li>
+<li>Create pixel classification outputs using the corresponding ilastik classifier</li>
+<li>Pass pixel classification and raw data inputs into the ilastik object classifier</li>
+<li>Reformat (using ilastikObjectToRAMON.m) and upload results (using CAJAL: cubeUploadDense.m)</li>
+</ul>
+<p>Ilastik Command:</p>
+<div class="code highlight-python"><div class="highlight"><pre>&lt;ilastik executable&gt; --headless
+--project=&lt;projectfile&gt;.ilp
+--export_object_prediction_img
+--raw_data &lt;path and filename for raw data&gt;/&lt;/hdf5 dataset&gt;
+--prediction_maps &lt;path and filename for probability maps&gt;.h5/&lt;hdf5 dataset&gt;
+--output_filename_format &lt;output filename&gt;
+--output_format hdf5
+</pre></div>
+</div>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p><em>&#8220;I want to add annotations to my dataset.&#8221;</em></p>
+<p>This example walks obtaining data from OCP, building classifiers in ilastik and deploying these classifiers in the OCP framework.
+The definitive documentation is at ilastik.org.  Here we seek to build a lightweight classifier to detect mitochondria in our images.</p>
+<p><strong>For pixel classification in ilastik</strong></p>
+<p>1.  Get datasets for training and test.  These volumes may be obtained via RESTful interface.  One simple option is to copy and paste
+the following URLs into a web browser.  All volumes should be renamed with an &#8216;.h5&#8217; extension.</p>
+<p><strong>Pixel Classification Training Volume</strong></p>
+<div class="code highlight-python"><div class="highlight"><pre>http://openconnecto.me/ocp/ca/kasthuri11cc/hdf5/1/3000,4000/5000,6000/1000,1016/
+</pre></div>
+</div>
+<p>Link to first slice</p>
+<div class="code highlight-python"><div class="highlight"><pre>http://openconnecto.me/ocp/ca/kasthuri11cc/xy/1/3000,4000/5000,6000/1000/
+</pre></div>
+</div>
+<p><strong>Pixel Classification Test Volume / Object Detection Training Volume</strong></p>
+<div class="code highlight-python"><div class="highlight"><pre>http://openconnecto.me/ocp/ca/kasthuri11cc/hdf5/1/3000,4000/5000,6000/1017,1032/
+</pre></div>
+</div>
+<p>Link to first slice</p>
+<div class="code highlight-python"><div class="highlight"><pre>http://openconnecto.me/ocp/ca/kasthuri11cc/xy/1/3000,4000/5000,6000/1017/
+</pre></div>
+</div>
+<p><strong>Object Detection Test Volume</strong></p>
+<div class="code highlight-python"><div class="highlight"><pre>http://openconnecto.me/ocp/ca/kasthuri11cc/hdf5/1/3000,4000/5000,6000/1033,1048/
+</pre></div>
+</div>
+<p>Link to first slice</p>
+<div class="code highlight-python"><div class="highlight"><pre>http://openconnecto.me/ocp/ca/kasthuri11cc/xy/1/3000,4000/5000,6000/1048/
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>Open Ilastik</li>
+<li>Create New Project  &gt; Pixel Classification</li>
+<li>Add new data &gt; separate image &gt; &lt;training volume&gt;</li>
+<li>Still in the input data tab, right click on dataset description, edit properties -&gt; change storage to save with classifier; change axes to -&gt; zyx</li>
+<li>In the feature selection tab, choose some features appropriate to your task (we choose color, edge, and texture with a sigma of 1 for this example)</li>
+<li>In the training tab, add two labels, mitochondria and background.  We assume that your target class is the first label, throughout this example <em>Live prediction can help guide you, but requires quite a bit of memory, especially for large datasets.</em></li>
+<li>Save project and exit.</li>
+<li>Run the Ilastik classifier, following the example above</li>
+<li>Convert output data to an OCP compatible format (probability channel needs to be chosen, xy axes need to be switched, and data should be converted to a RAMONVolume) ilastik object detection requires the raw ilastik output</li>
+<li>Upload result to OCP, using (using CAJAL: cubeUploadProbabilities.m)</li>
+</ol>
+<p><strong>For object detection in ilastik (depends on pixel classification)</strong></p>
+<ol class="arabic simple">
+<li>Open Ilastik</li>
+<li>Create New Project &gt; Object Classification with Inputs of Raw Data + Pixel Prediction Map</li>
+<li>Load data</li>
+<li>In the threshold and size filter tab, we chose only one threshold, with sigma values defaulted to 1. Threshold = 0.7, and size filter = 1000-1000000</li>
+<li>In the features tab, select all features</li>
+<li>Add labels of mitochondria and background (target/clutter)</li>
+<li>In the object classification tab, label detections as either target or clutter</li>
+<li>This is sufficient for classification, although subsequent ilastik steps may help improve classifier performance.</li>
+<li>Save project and exit ilastik.</li>
+<li>Run the Ilastik classifier, following the example above</li>
+<li>Convert output data to an OCP compatible format (xy axes need to be switched and array squeezed.  Making unique objects is handled in the next step)</li>
+<li>Group objects by connected component and upload to OCP using (using CAJAL: cubeUploadDense.m)</li>
+</ol>
+<p><strong>Sample classifiers:</strong></p>
+<div class="code highlight-python"><div class="highlight"><pre>./data/ilastik_mito_pixelclassification.ilp
+./data/ilastik_mito_objclassification.ilp
+</pre></div>
+</div>
+<p>Sample results:</p>
+<div class="code highlight-python"><div class="highlight"><pre>http:///ocp/overlay/0.4/test_ilastik_prob1/xy/1/7000,8000/8500,9500/1010/
+</pre></div>
+</div>
+<div class="figure align-center">
+<img alt="../_images/ilastik_pixel_class_example.png" src="../_images/ilastik_pixel_class_example.png" />
+</div>
+</div>
+<div class="section" id="advanced-topics-future-functionality">
+<h2>Advanced Topics/Future Functionality<a class="headerlink" href="#advanced-topics-future-functionality" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>When uploading annotations processed as many small cubes, often some sort of padding or stitching operation is required.  These will differ slightly depending on use cases.  Examples exist (e.g., i2g, vesicle) to use as a starting point</li>
+<li>When running in an SGE cluster environment, we suggest limiting threads to 1 and RAM to the value specified in LONI to allow ilastik lazy operations to co-exist smoothly with SGE.  To do this, specify the following environment variables:  LAZYFLOW_THREADS=1 LAZYFLOW_TOTAL_RAM_MB=8000 run_ilastik.sh &#8211;headless ...</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, NeuroData.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'v1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

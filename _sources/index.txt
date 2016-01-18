@@ -19,4 +19,4 @@ For documentation and usage instructions please see `our docs <http://docs.neuro
   :maxdepth: 1
   :caption: function documentation
 
-  mano_functions
+  mana_functions
