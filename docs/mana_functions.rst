@@ -1,7 +1,7 @@
-mano Functions
+mana Functions
 **********************
 
-.. automodule:: mano.code
+.. automodule:: mana.code
    :members:
 
 

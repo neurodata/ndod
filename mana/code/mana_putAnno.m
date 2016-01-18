@@ -1,5 +1,5 @@
-function mano_putAnno(server, token, channel, queryFile, fileIn, protoRAMON, doConnComp, useSemaphore)
-% mano function to upload annotation data from ITK-Snap to OCP.
+function mana_putAnno(server, token, channel, queryFile, fileIn, protoRAMON, doConnComp, useSemaphore)
+% mana function to upload annotation data from ITK-Snap to OCP.
 %
 % **Inputs**
 %

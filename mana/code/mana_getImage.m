@@ -1,5 +1,5 @@
-function mano_getImage(server, token, channel, queryFile, fileOut, useSemaphore)
-% mano function to get OCP image data and format it to be
+function mana_getImage(server, token, channel, queryFile, fileOut, useSemaphore)
+% mana function to get OCP image data and format it to be
 % compatible with ITK-Snap.
 %
 % **Inputs**

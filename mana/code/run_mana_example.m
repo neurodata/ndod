@@ -1,13 +1,13 @@
-function run_mano_example()
-% mano Example 
-% mano starter to demonstrate protocol functionality.  All required inputs
+function run_mana_example()
+% mana Example 
+% mana starter to demonstrate protocol functionality.  All required inputs
 % are hardcoded for this demo.  Paths are hardcoded for Linux/Mac.
 % 
 % This example should be run from the code directory because of the
 % relative paths
 %
 % The result of this run can be viewed in a webbrowser using the following
-% URL: http://openconnecto.me/ocp/overlay/0.6/openconnecto.me/kasthuri11cc/image/openconnecto.me/mano/mito/xy/1/5472,5972/8712,9212/1031/
+% URL: http://openconnecto.me/ocp/overlay/0.6/openconnecto.me/kasthuri11cc/image/openconnecto.me/mana/mito/xy/1/5472,5972/8712,9212/1031/
 
 xstart = 5472;
 xstop = xstart + 512;
@@ -28,10 +28,10 @@ server = 'openconnecto.me';
 token = 'kasthuri11cc';
 channel = 'image';
 serverUp = 'openconnecto.me';
-tokenUp = 'mano';
+tokenUp = 'mana';
 channelUp = 'mito';
-%% Run mano
-mano_getImage(server,token,channel,'../data/queryFileTest','../data/testitk.nii',0)
+%% Run mana
+mana_getImage(server,token,channel,'../data/queryFileTest','../data/testitk.nii',0)
 
 % Manual annotation step happens here
-mano_putAnno(serverUp,tokenUp,channelUp,'../data/queryFileTest','../data/mito_seg_example.nii.gz','RAMONOrganelle', 1,0)
+mana_putAnno(serverUp,tokenUp,channelUp,'../data/queryFileTest','../data/mito_seg_example.nii.gz','RAMONOrganelle', 1,0)
