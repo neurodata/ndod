@@ -1,3 +1,0 @@
-This directory contains data that has been derived from the original data set (found in ../orig).  The image data is the same; however, the class labels are different.  The original data only annotated a single pixel from each cell body (and contained no explicit annotations for non-cell body pixels).  Here, we have made some attempt to annotate pixels from both cell bodies and non-cell bodies (guided by the original annotations).
-
-Note these annotations are very sparse, and were only generated for a small subset of the original data (due to time constraints).  Accordingly, this serves only as an example of the general procedure; it is recommended that for an actual application more time be spent generating representative truth.

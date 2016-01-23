@@ -1,11 +1,22 @@
-**ndod** is the NeuroData Object Detection parent repository
+NDOD:  NeuroData Object Detection
+=================================
 
-This repo contains the code needed to train, evaluate, and deploy code for parsing volumes of NeuroData images. 
+ 
 
-![ndod example](images/ndod/ndod_example.png)
+Installation
+------------
 
-It contains the legacy code for manno and macho.  The current version of ndod is divided into the three major components required to parse neuroscience data at scale:
+You can either clone this repository and use it locally, or install from pypi:
 
-- **mano**:  manual annotation for neuroscience operations
-- **brain**: big-data research algorithms to inform neuroscience
-- **dragon**: deployment resources for annotation generation and open neuroscience 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+pip install ndod #not yet!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Use this Python library to easily interface with NeuroData algorithms to
+manually annotate data (mano), use computer vision algorithms (brain) and deploy
+across large neuroscience datasets (dragon).
+
+ 
+
+Examples coming soon.  This code was shamelessly started from a clone of
+PyTablePrinter by Jordan Matelsky.
