@@ -1,4 +1,4 @@
-# (c) [2015] The Johns Hopkins University / Applied Physics Laboratory 
+# (c) 2015 The Johns Hopkins University / Applied Physics Laboratory 
 #            All Rights Reserved.
 # Contact the JHU/APL Office of Technology Transfer for any additional rights.  
 #            www.jhuapl.edu/ott
@@ -14,3 +14,4 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
