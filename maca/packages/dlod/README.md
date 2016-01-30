@@ -44,7 +44,7 @@ One approach to generate additional examples is to expand the sparse class label
 
 ![alt text](./data/ForDocs/Y_inferred.png?raw=true, "Inferred Annotations")
 
-where cell body pixels are labeled +1, non-cell body pixels have label -1 and pixels without a truth label have the value 0 (there are only three values in this image; the colorbar is only provided to make clear which pixels take which values).  Note that, in order to reduce label noise, the script above does not attempt to extend the initial labeling to every pixel; using different parameters when running the script will lead to more or less conservative labelings.  This procedure leads to abundant (albeit  less accurate) labels.  Training a classifier using labels generated in this manner (across all images in the training data set) and then applies the resulting classifier to the following test image:
+where cell body pixels are labeled +1, non-cell body pixels have label -1 and pixels without a truth label have the value 0; the red circles denote the locations of the original ground truth for reference (note there are only three values in this image {-1, 0, +1}; the colorbar is only provided to make clear which pixels take which values).  In order to reduce label noise, the script above does not attempt to extend the initial labeling to every pixel; using different parameters when running the script will lead to more or less conservative labelings.  This procedure leads to abundant (albeit  less accurate) labels.  Training a classifier using labels generated in this manner (across all images in the training data set) and then applies the resulting classifier to the following test image:
 
 ![alt text](./data/interpolated/img.00012.interp.png?raw=true, "Test Image")
 
