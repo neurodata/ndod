@@ -1,6 +1,6 @@
 # Caffe-based Cell Detection Experiment
 
-This module includes code and models which together provide a procedure for identifying structures in neural image data.  In particular, we focus on dense (i.e. per-pixel) classification problems where the goal is to discriminate between cell body pixels and non-cell body pixels.  Our approach is based on [this paper](http://papers.nips.cc/paper/4741-deep-neural-networks-segment-neuronal-membranes-in-electron-microscopy-images) where convolutional neural networks (CNNs) are applied in a sliding window manner to classify individual pixels.
+This module includes code and models which together provide a procedure for identifying structures in neural image data.  In particular, we focus on dense (i.e. per-pixel) classification problems where the goal is to discriminate between cell body pixels and non-cell body pixels.  Our approach is based on [this paper](http://papers.nips.cc/paper/4741-deep-neural-networks-segment-neuronal-membranes-in-electron-microscopy-images) where convolutional neural networks (CNNs) are applied in a sliding window manner to segment electron microscopy (EM) images.
 
 
 ## Prerequisites
@@ -21,7 +21,7 @@ There are a few basic steps:
 
 2. Setup a binary classification problem.  This involves extracting labeled examples from annotated neuro data images and saving these examples in a Caffe-compatible LMDB database.  For the provided example, this can be accomplished via
     ```make lmdb```
-which will generate some status to stdout and ultimately report some statistics for the training and test datasets.
+which will generate some status to stdout and ultimately report some statistics for the training and test datasets.  To create LMDB databases for your problem of interest, call the [make_binary_dataset.py](./src/make_binary_dataset.py) script with appropriate *--train-dir* and *--test-dir* arugments (see the make target for an example of the arguments this script expects).
 
 3. Train a Caffe classifier.  For best results, you will need to design the neural network architecture and select reasonable hyperparameters.  This is a non-trivial exercise and is typically problem dependent.  As part of this package we provide a simple example derived from one of the models included in Caffe (originally for CIFAR-10) that uses the LMDB dataset created in the previous step.  To train this model, do
     ```make train-gpu```.
@@ -48,7 +48,7 @@ where cell body pixels are labeled +1, non-cell body pixels have label -1 and pi
 
 ![alt text](./data/interpolated/img.00012.interp.png?raw=true, "Test Image")
 
-one obtains class estimates of the form:
+one obtains class estimates of the form (colors indicate probability of cell body at the given pixel):
 
 ![alt text](./data/ForDocs/Yhat_gross.png?raw=true, "Inferred Annotations")
 
