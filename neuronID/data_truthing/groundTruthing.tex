@@ -1,0 +1,46 @@
+\documentclass[11pt]{amsart}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\usepackage{url}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\title{Ground Truthing Protocol - NeuronID \\
+ Version 0.01, initial release}
+\author{William Gray Roncal and Dean Kleissas}
+%\date{11.12.14}                                           % Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+
+\section{Prerequisites}
+
+In order to use this truthing protocol, users should have the following software:
+\begin{itemize}
+\item{This NeuronID toolbox [\url{www.github.com/willgray/neuronID}]}
+\item{ITK Snap (3.x) installed on their system [\url{http://www.itksnap.org/}]}
+\item{A recent version of MATLAB}
+\item{OCP API [\url{openconnecto.me}] - only needed when pulling or pushing to \\ the Open Connectome Project}
+\item{NIFTI tools  [\url{http://www.mathworks.com/matlabcentral/fileexchange/} \\ \url{8797-tools-for-nifti-and-analyze-image]}}
+
+\end{itemize}
+
+\section{Data Acquisition}
+
+\noindent ITK Snap is compatible with a variety of input data formats; the most straightforward is NIFTI, a general purpose neuroimaging format.  To read in source data from OCP and convert to NIFTI, please use the following reader: \url{io/ocp_get_cshl_data.m}.  For JP2 files (or other formats supported by imread), please use: \url{io/get_local_data.m}.  On laptops or smaller workstations, only a small portion of a slice/volume should be truthed at a time for memory reasons.  
+
+\section{Data Truthing}
+\noindent Once the data has been formatted for ITK Snap, the user should open the ITK SNAP application and load in the NIFTI data saved during the data acquisition step.  When painting annotations, please follow the steps outlined at: \url{http://www.itksnap.org/pmwiki/pmwiki.php?n=Documentation.TutorialSectionManualSegmentation}.  \\ \\
+If using RGB data, it may not display in a multichannel view by default.  To adjust the view, follow these steps:  within ITK Snap, first load the nifti image.  Then tools $\rightarrow$ layer inspector $\rightarrow$ general tab $\rightarrow$ select RGB (under displaying multiple components per voxel)
+\\ \\
+\noindent Each cell should be densely annotated as a distinct object, with different colors used to segment overlapping cells.  It is assumed that truth data is exhaustively labeled in a convex hull around the cluster(s) of painted cells.   We have observed that 4-6 labels is usually sufficient.  When finished annotating, please save the ITK Snap project so that you can return later, and also export your stack as a NIFTI image (from the Segmentation Menu $\rightarrow$ Save Segmentation Image $\rightarrow$ save as NIFTI).  
+
+\section{Data Output}
+To convert from ITK Snap to PNG format, please use the utility \url{io/put_truthing_data_local.m}.  This will save a PNG mask file (or stack) in the specified location.  When sharing local files, please send both the NIFTI and PNG stack.
+
+
+\end{document}  
